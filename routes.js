@@ -15,15 +15,32 @@ let readContent = (filename) => {
     }
 }
 
+let listFiles = (dir) => {
+    try {
+        return fs.readdirSync(dir)
+    } catch (err) {
+        console.error('nothing found in : ' + dir)
+        return []
+    }
+}
+
+let importData = () => {
+    let data = []
+    let inputs = listFiles('./inputs')
+    inputs.forEach(i => {
+        if (i.endsWith('.json')) data.push(readContent('./inputs/' + i))
+    })
+    return data
+}
+
 let initApp = () => {
     let schema0 = readContent('./schemas/schema.json')
     db.saveSchema(schema0, true)
-    let json0 = readContent('./inputs/data.json')
-    db.save(json0)
+    let jList = importData()
+    jList.forEach(j => db.save(j))
     let v = new validator.JsonValidator()
     v.selectSchema(JSON.parse(schema0))
-    let stat0 = v.validate(JSON.parse(json0))
-    db.saveStats(stat0)
+    jList.map(j => v.validate(JSON.parse(j))).forEach(s => db.saveStats(s))
 }
 
 module.exports = (app) => {

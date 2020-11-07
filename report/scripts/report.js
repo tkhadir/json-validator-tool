@@ -12,12 +12,12 @@ let displayStats = (results) => {
 
         // The data for our dataset
         data: {
-            labels: [results['docs']],
+            labels: results['docs'],
             datasets: [{
                 label: 'json documents validation status',
                 backgroundColor: 'rgb(0,255,127)',
                 borderColor: 'rgb(255, 99, 132)',
-                data: [results['stats']]
+                data: results['stats']
             }]
         },
         options: {}
@@ -70,9 +70,11 @@ let fetchDocs = () => {
     .then(response => {
         response.json().then(data => {
             $("#doc-list").html('')
+            let content = ''
             data.forEach((d, i) => {
-                $("#doc-list").html('<h3>doc' + (i + 1) + '</h3><p>' + d + '</p>')
+                content += '<h3>doc' + (i + 1) + '</h3><p>' + d + '</p>'
             })
+            $("#doc-list").html(content)
             jsonList = data
         }).catch(e => console.log(e))
     })
@@ -93,9 +95,11 @@ let fetchStats = () => {
     .then(response => {
         response.json().then(data => {
             $("#stat-list").html('')
-            data.forEach(d => {
-                $("#stat-list").html('<p>' + JSON.stringify(d) + '</p>')
+            let content = ''
+            data.forEach((d, i) => {
+                content += '<h3>doc' + (i + 1) + '</h3><p>' + JSON.stringify(d) + '</p>'
             })
+            $("#stat-list").html(content)
             stats = data
             showChart()
         }).catch(e => console.log(e))
