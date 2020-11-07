@@ -1,0 +1,28 @@
+{
+  "name": "json-validator-tool",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tkhadir/json-validator-tool.git"
+  },
+  "author": "tkhadir",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tkhadir/json-validator-tool/issues"
+  },
+  "homepage": "https://github.com/tkhadir/json-validator-tool#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "fs": "0.0.1-security",
+    "jsonschema": "^1.4.0",
+    "rxjs": "^6.6.3",
+    "sqlite3": "^5.0.0"
+  }
+}
